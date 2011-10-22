@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111020214252) do
+ActiveRecord::Schema.define(:version => 20111021153217) do
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(:version => 20111020214252) do
     t.string   "uid"
     t.string   "oauth_token"
     t.string   "oauth_secret"
+    t.string   "fb_oauth_token"
+    t.string   "fb_oauth_secret"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

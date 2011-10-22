@@ -44,3 +44,6 @@ gem 'omniauth'
 # To use Twitter
 gem 'twitter'
 gem 'twitter4r', :require => 'twitter'
+
+# To use Facebook
+gem 'fb_graph'
