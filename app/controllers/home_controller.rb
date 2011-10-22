@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    if current_user.fb_oauth_token
+    if current_user and current_user.fb_oauth_token
       fbme
     end
   end
@@ -21,10 +21,10 @@ class HomeController < ApplicationController
     if current_user.fb_oauth_token
       begin
         me = FbGraph::User.me(current_user.fb_oauth_token)
+        me.permissions << "user_status"
         me.fetch
         me.feed!(
           :message => 'Updating via FbGraph',
-          :picture => 'https://graph.facebook.com/matake/picture',
           :link => 'https://github.com/nov/fb_graph',
           :name => 'FbGraph',
           :description => 'A Ruby wrapper for Facebook Graph API'

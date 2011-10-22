@@ -199,7 +199,8 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
   config.omniauth :twitter, 'jl6Dh9PGJh76DG8OQpmtw', 'w6OL1XQiTgytFH3P6ntEcXdpgL3dEjRAIl5itx90'
   config.omniauth :facebook, "283158788370938", "6fd9cf399e8f21bae6bf04c93198debd", 
-    {:client_options => {:ssl => {:ca_path => '/etc/ssl/certs'}}} 
+    {:scope => 'email, offline_access, publish_stream, status_update, photo_upload',
+      :client_options => {:ssl => {:ca_path => '/etc/ssl/certs'}}} 
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
