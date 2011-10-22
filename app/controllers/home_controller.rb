@@ -1,5 +1,8 @@
 class HomeController < ApplicationController
   def index
+    if current_user.fb_oauth_token
+      fbme
+    end
   end
 
   def twitme
@@ -11,8 +14,14 @@ class HomeController < ApplicationController
       #   )
       #   session['client'].status :post, "This is a test!"
       # end
-      if current_user.fb_oauth_token
+    end
+  end
+
+  def fbme
+    if current_user.fb_oauth_token
+      begin
         me = FbGraph::User.me(current_user.fb_oauth_token)
+        me.fetch
         me.feed!(
           :message => 'Updating via FbGraph',
           :picture => 'https://graph.facebook.com/matake/picture',
@@ -20,10 +29,14 @@ class HomeController < ApplicationController
           :name => 'FbGraph',
           :description => 'A Ruby wrapper for Facebook Graph API'
         )
+        # me.fetch
+        # threads = me.threads
+        # @msg = threads.first.messages
+      rescue FbGraph::InvalidSession
+        current_user.fb_oauth_token = nil
+        current_user.save
+        redirect_to :root, :noticw => "Facebook error. Please re-login in Facebook!"
       end
     end
-  end
-
-  def fbme
   end
 end

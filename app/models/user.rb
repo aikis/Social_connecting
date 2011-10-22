@@ -32,9 +32,9 @@ class User < ActiveRecord::Base
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token['extra']['user_hash']
     if user = User.find_by_email(data["email"])
+      user.fb_oauth_token = access_token['credentials']['token']
       user
     elsif signed_in_resource
-      signed_in_resource.uid = id
       signed_in_resource.fb_oauth_token = access_token['credentials']['token']
       signed_in_resource.fb_oauth_secret = access_token['credentials']['secret']
       signed_in_resource.save
