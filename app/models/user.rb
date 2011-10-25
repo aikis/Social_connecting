@@ -32,12 +32,12 @@ class User < ActiveRecord::Base
   def self.find_for_facebook_oauth(access_token, signed_in_resource=nil)
     data = access_token['extra']['user_hash']
     if user = User.find_by_email(data["email"])
-      user.fb_oauth_token = access_token['credentials']['token']
+      # user.fb_oauth_token = access_token['credentials']['token']
       user
-    elsif signed_in_resource
-      signed_in_resource.fb_oauth_token = access_token['credentials']['token']
-      signed_in_resource.fb_oauth_secret = access_token['credentials']['secret']
-      signed_in_resource.save
+    # elsif signed_in_resource
+    #   signed_in_resource.fb_oauth_token = access_token['credentials']['token']
+    #   signed_in_resource.fb_oauth_secret = access_token['credentials']['secret']
+    #   signed_in_resource.save
     else # Create a user with a stub password. 
       u = User.create(:email => data["email"], 
         :password => Devise.friendly_token[0,20])
@@ -56,14 +56,25 @@ class User < ActiveRecord::Base
       # else
         user
       # end
-    elsif signed_in_resource and signed_in_resource.uid.blank?
-      signed_in_resource.uid = id
-      signed_in_resource.oauth_token = access_token['credentials']['token']
-      signed_in_resource.oauth_secret = access_token['credentials']['secret']
-      signed_in_resource.save
+    # elsif signed_in_resource and signed_in_resource.uid.blank?
+    #   signed_in_resource.uid = id
+    #   signed_in_resource.oauth_token = access_token['credentials']['token']
+    #   signed_in_resource.oauth_secret = access_token['credentials']['secret']
+    #   signed_in_resource.save
     else
       User.create(:username => nick, :password => Devise.friendly_token[0,20], :uid => id) 
     end
   end
 
+  def link_twitter(access_token)
+    self.uid = access_token['uid']
+    self.oauth_token = access_token['credentials']['token']
+    self.oauth_secret = access_token['credentials']['secret']
+    self.save
+  end
+
+  def link_facebook(access_token)
+    self.fb_oauth_token = access_token['credentials']['token']
+    self.save
+  end
 end

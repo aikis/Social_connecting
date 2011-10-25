@@ -1,0 +1,2 @@
+class PostmsgController < ApplicationController
+end

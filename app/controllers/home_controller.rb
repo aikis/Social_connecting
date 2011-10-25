@@ -1,19 +1,20 @@
 class HomeController < ApplicationController
   def index
-    if current_user and current_user.fb_oauth_token
-      fbme
-    end
+    # if current_user
+    #   fbme
+    #   twitme
+    # end
   end
 
   def twitme
-    if user_signed_in?
-      # if current_user.oauth_token
-      #   session['client'] = Twitter::Client.new(:oauth_access => {
-      #       :key => current_user.oauth_token, :secret => current_user.oauth_secret
-      #     }
-      #   )
-      #   session['client'].status :post, "This is a test!"
-      # end
+    if current_user.oauth_token
+      if current_user.oauth_token
+        session['client'] = Twitter::Client.new(:oauth_access => {
+            :key => current_user.oauth_token, :secret => current_user.oauth_secret
+          }
+        )
+        session['client'].status :post, "This is a test!"
+      end
     end
   end
 

@@ -1,0 +1,2 @@
+module PostmsgHelper
+end
