@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    article = Article.new(:title => params[:title], :text => params[:text])
+    article = Article.new(:title => params[:title], :text => params[:text], :uid => current_user.id)
     article.save
     if params[:twitter]
       twi = Twitter::Client.new(:oauth_access => {
