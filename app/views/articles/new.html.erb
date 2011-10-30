@@ -1,0 +1,13 @@
+<%= form_tag(articles_path, :method => "post") do %>
+  <%= text_field_tag(:title) %><br>
+  <%= text_area_tag(:text, "", :size => "24x6") %><br>
+  <% if current_user.fb_oauth_token %>
+    <%= check_box_tag(:facebook) %>
+      <%= label_tag(:facebook, "Post to facebook") %><br>
+  <% end %>
+  <% if current_user.uid %>
+    <%= check_box_tag(:twitter) %>
+      <%= label_tag(:twitter, "Post to twitter") %><br>
+  <% end %>
+  <%= submit_tag("Post") %>
+<% end %>

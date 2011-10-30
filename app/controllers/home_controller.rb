@@ -22,7 +22,6 @@ class HomeController < ApplicationController
     if current_user.fb_oauth_token
       begin
         me = FbGraph::User.me(current_user.fb_oauth_token)
-        me.permissions << "user_status"
         me.fetch
         me.feed!(
           :message => 'Updating via FbGraph',

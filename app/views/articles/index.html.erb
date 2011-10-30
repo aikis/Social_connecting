@@ -1,0 +1,7 @@
+<%= link_to "Add new article", new_article_path if current_user %>
+<% if @articles %>
+  <% for article in @articles %>
+    <h3><%= article.title %></h3>
+    <p><%= article.text %></p>
+  <% end %>
+<% end %>
