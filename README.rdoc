@@ -1,4 +1,4 @@
-== Social connecting (twitter & Facebookk status updates)
+== Social connecting (twitter & Facebook status updates)
 
 Social connecting is a working example how to update twitter and Facebook statuses for your users
 
