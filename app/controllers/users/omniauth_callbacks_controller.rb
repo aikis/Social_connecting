@@ -8,7 +8,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       #   sign_in_and_redirect @user, :event => :authentication
       # elsif !@user
         current_user.link_facebook env['omniauth.auth']
-        redirect_to :root, :notice => "Successfully linked Facebook account!"
+        redirect_to :root, :notice = >"Successfully linked Facebook account!"
       else
         redirect_to :root, :notice => "Your Facebook account have benn already linked!"
       end
